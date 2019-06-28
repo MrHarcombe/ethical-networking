@@ -1,4 +1,4 @@
-# ethical-networking
+# ethical-networks
 Simple Flask application to demonstrate various hacking techniques, ethically, to year 9 students.
 
 Basic plan is to have:
