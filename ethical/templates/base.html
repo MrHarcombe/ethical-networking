@@ -5,11 +5,24 @@
   <h1>Ethical Networks</h1>
   <ul>
     {% if g.user %}
-      <li><span>{{ g.user['username'] }}</span>
-      <li><a href="{{ url_for('auth.logout') }}">Log Out</a>
+      <li><span>{{ g.user['username'] }}</span></li>
+      <li><a href="{{ url_for('auth.logout') }}">Log Out</a></li>
     {% else %}
-      <li><a href="{{ url_for('auth.register') }}">Register</a>
-      <li><a href="{{ url_for('auth.login') }}">Log In</a>
+      {% set prefix = 'shauth' if 'shauth' in request.path else 'hauth' if 'hauth' in request.path else 'auth' %}
+      {% if 'prefix' in request.args %}
+	  {%   set prefix = request.args['prefix'] %}
+	  {% endif %}
+      <li><a href="{{ url_for(prefix + '.register') }}">Register</a></li>
+      <li><a href="{{ url_for(prefix + '.login') }}">Log In</a></li>
+	  <li>
+		<form action="{{ url_for( 'home' ) }}">
+		  <select name="prefix" onchange="this.form.submit();">
+		    <option value="auth" {{ 'selected' if prefix == 'auth' }}>Plaintext</option>
+			<option value="hauth" {{ 'selected' if prefix == 'hauth' }}>Hashed</option>
+			<option value="shauth" {{ 'selected' if prefix == 'shauth' }}>Salted</option>
+		  </select>
+		</form>
+	  </li>
     {% endif %}
   </ul>
 </nav>

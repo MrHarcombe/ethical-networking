@@ -37,4 +37,12 @@ def create_app(test_config=None):
     from . import auth
     app.register_blueprint(auth.bp)
 
+    # setup the unsalted, hashed authentication blueprints
+    from . import hauth
+    app.register_blueprint(hauth.bp)
+
+    # setup the salted, hashed authentication blueprints
+    from . import shauth
+    app.register_blueprint(shauth.bp)
+
     return app
