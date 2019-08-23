@@ -81,7 +81,9 @@ def login():
             'SELECT * FROM shuser WHERE username = "' + username + '"'
         ).fetchone()
 
-        if user is None or not check_password_hash(user['password'], password):
+        if user is None:
+            error = 'Unknown username'
+        elif not check_password_hash(user['password'], password):
             error = 'Incorrect username or password: {}.'.format([c for c in user])
 
         if error is None:

@@ -80,8 +80,11 @@ def login():
             'SELECT * FROM huser WHERE username = "' + username + '"'
         ).fetchone()
 
-        if user is None or user['password'] != hashlib.sha1(bytearray(password, "utf8")).hexdigest():
+        if user is None:
+            error = 'Unknown username'
+        elif user['password'] != hashlib.sha1(bytearray(password, "utf8")).hexdigest():
             error = 'Incorrect username or password: {}.'.format([c for c in user])
+
 
         if error is None:
             session.clear()
