@@ -12,4 +12,4 @@ Simple Flask application to demonstrate various hacking techniques, ethically, t
 - Be in the root project directory (ie above the ethical folder)
 - Set an environment variable FLASK_APP=ethical
 - Optionally set an environment variable FLASK_ENV=development (if you've going to be making code changes and want Flask to auto-reload them)
-- Execute `python3 -m flask run`
+- Execute `python3 -m flask run --host=0.0.0.0`
