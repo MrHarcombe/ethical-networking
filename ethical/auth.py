@@ -40,7 +40,7 @@ def register():
 ###
 # parameterized login - SQL-injection hardened
 #
-@bp.route('/plogin', methods=('GET', 'POST'))
+@bp.route('/login', methods=('GET', 'POST'))
 def plogin():
     if request.method == 'POST':
         username = request.form['username']
@@ -55,36 +55,6 @@ def plogin():
             error = 'Incorrect username.'
         elif user['password'] != password:
             error = 'Incorrect password.'
-
-        if error is None:
-            session.clear()
-            session['user_id'] = user['id']
-            session['table'] = 'user'
-            return redirect(url_for('home'))
-
-        flash(error)
-
-    return render_template('auth/login.html')
-
-
-###
-# this login uses parameters, so is vulnerable to SQL-injection attacks
-#
-@bp.route('/login', methods=('GET', 'POST'))
-def login():
-    if request.method == 'POST':
-        username = request.form['username']
-        password = request.form['password']
-        db = get_db()
-        error = None
-        user = db.execute(
-            'SELECT * FROM user WHERE username = "' + username + '"'
-        ).fetchone()
-
-        if user is None:
-            error = 'Unknown username'
-        elif user['password'] != password:
-            error = 'Incorrect username or password: {}.'.format([c for c in user])
 
         if error is None:
             session.clear()

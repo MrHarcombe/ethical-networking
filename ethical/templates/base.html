@@ -8,7 +8,7 @@
       <li><span>{{ g.user['username'] }}</span></li>
       <li><a href="{{ url_for('auth.logout') }}">Log Out</a></li>
     {% else %}
-      {% set prefix = 'shauth' if 'shauth' in request.path else 'hauth' if 'hauth' in request.path else 'auth' %}
+      {% set prefix = 'shauth' if 'shauth' in request.path else 'hauth' if 'hauth' in request.path else 'iauth' if 'iauth' in request.path else 'auth' %}
       {% if 'prefix' in request.args %}
 	  {%   set prefix = request.args['prefix'] %}
 	  {% endif %}
@@ -18,6 +18,7 @@
 		<form action="{{ url_for( 'home' ) }}">
 		  <select name="prefix" onchange="this.form.submit();">
 		    <option value="auth" {{ 'selected' if prefix == 'auth' }}>Plaintext</option>
+		    <option value="iauth" {{ 'selected' if prefix == 'iauth' }}>Injection</option>
 			<option value="hauth" {{ 'selected' if prefix == 'hauth' }}>Hashed</option>
 			<option value="shauth" {{ 'selected' if prefix == 'shauth' }}>Salted</option>
 		  </select>
