@@ -1,7 +1,6 @@
 import functools
 
 from flask import Blueprint, flash, g, redirect, render_template, request, session, url_for
-from werkzeug.security import check_password_hash, generate_password_hash
 
 from ethical.db import get_db
 
@@ -30,7 +29,7 @@ def register():
                 (username, password)
             )
             db.commit()
-            return redirect(url_for('auth.login'))
+            return redirect(url_for('iauth.login'))
 
         flash(error)
 
