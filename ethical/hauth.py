@@ -40,7 +40,7 @@ def register():
 # parameterized login - SQL-injection hardened
 #
 @bp.route('/login', methods=('GET', 'POST'))
-def plogin():
+def login():
     if request.method == 'POST':
         username = request.form['username']
         password = request.form['password']
